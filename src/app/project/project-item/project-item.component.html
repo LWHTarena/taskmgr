@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-header (click)="onClick($event)">
+    <mat-card-title>
+      {{item.name}}
+    </mat-card-title>
+  </mat-card-header>
+  <img mat-card-image [src]="item.coverImg" alt="封面" (click)="onClick($event)"/>
+  <mat-card-content (click)="onClick($event)">
+    {{item.desc}}
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button type="button" (click)="onEditClick()">
+      <mat-icon>note</mat-icon>
+      <span>编辑</span>
+    </button>
+    <button mat-button type="button" (click)="onInviteClick()">
+      <mat-icon>group_add</mat-icon>
+      <span>邀请</span>
+    </button>
+    <button mat-button type="button" (click)="onDeleteClick()">
+      <mat-icon>delete</mat-icon>
+      <span>删除</span>
+    </button>
+  </mat-card-actions>
+</mat-card>

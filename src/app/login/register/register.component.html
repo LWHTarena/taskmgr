@@ -1,0 +1,59 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form, $event)">
+    <mat-card class="card">
+        <mat-tab-group [dynamicHeight]="true" [selectedIndex]="selectedTab"
+                       (selectChange)="onTabChange($event.index)">
+            <mat-tab label="帐号信息">
+
+                <mat-form-field class="full-width">
+                    <input matInput type="text" placeholder="您的email" formControlName="email"/>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput type="text" placeholder="您的姓名" formControlName="name"/>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput type="password" placeholder="您的密码" formControlName="password"/>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput type="password" placeholder="重复输入您的密码" formControlName="repeat"/>
+                </mat-form-field>
+
+                <app-image-list-select
+                    [useSvgIcon]="true"
+                    [cols]="6"
+                    [title]="'选择头像：'"
+                    [items]="items"
+                    formControlName="avatar">
+                </app-image-list-select>
+                <div class="full-width action-area">
+                    <button mat-raised-button type="button" (click)="nextTab()">下一步</button>
+                    <span class="fill-remaining-space"></span>
+                    <span>
+                        <span>已有账户？ <a routerLink="/login">登录</a></span>
+                        <span>忘记 <a routerLink="/forgot">密码？</a></span>
+                    </span>
+                </div>
+            </mat-tab>
+            <mat-tab label="个人信息">
+                <app-identity-input formControlName="identity" class="full-width control-padding">
+                </app-identity-input>
+                <div class="full-width control-padding">
+                    <app-age-input formControlName="dateOfBirth"></app-age-input>
+                </div>
+                <div class="full-width control-padding">
+                    <app-area-list formControlName="address"></app-area-list>
+                </div>
+                <div class="full-width">
+                    <button mat-raised-button type="button" (click)="prevTab()">上一步</button>
+                    <button mat-raised-button type="submit" [disabled]="!form.valid">注册</button>
+                    <span class="fill-remaining-space"></span>
+                    <span>
+                            <span>已有账户？ <a routerLink="/login">登录</a></span>
+                            <span>忘记 <a routerLink="/forgot">密码？</a></span>
+                        </span>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+
+</form>
+

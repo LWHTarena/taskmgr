@@ -1,0 +1,31 @@
+<div matSubheader class="header-container">
+    <div>
+        <h4>{{header}}</h4>
+    </div>
+    <div class="fill">
+        <button mat-button (click)="addNewTask($event)">
+            <mat-icon>add_circle_outline</mat-icon>
+            <span>新任务</span>
+        </button>
+    </div>
+    <div>
+        <button mat-button [matMenuTriggerFor]="menuRef">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+    </div>
+</div>
+
+<mat-menu #menuRef="matMenu">
+    <button mat-menu-item (click)="onChangeListName($event)">
+        <mat-icon>mode_edit</mat-icon>
+        <span>修改列表名称</span>
+    </button>
+    <button mat-menu-item (click)="onMoveAllTasks($event)">
+        <mat-icon svgIcon="move" class="material-icon">content_copy</mat-icon>
+        <span>移动本列表所有内容</span>
+    </button>
+    <button mat-menu-item (click)="onDeleteList($event)">
+        <mat-icon>delete_forever</mat-icon>
+        <span>删除列表</span>
+    </button>
+</mat-menu>

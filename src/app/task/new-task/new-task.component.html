@@ -1,0 +1,60 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form, $event)">
+    <h2 mat-dialog-title>{{title}}</h2>
+
+    <mat-dialog-content>
+        <mat-form-field class="full-width">
+            <input matInput type="text" placeholder="任务内容" formControlName="desc"/>
+        </mat-form-field>
+
+        <mat-radio-group class="full-width" formControlName="priority">
+            <mat-radio-button *ngFor="let priority of priorities" [value]="priority.value">
+                {{priority.label}}
+            </mat-radio-button>
+        </mat-radio-group>
+
+        <div class="full-width">
+            <app-chips-list [label]="'更改执行者'" [multiple]="false" formControlName="owner"></app-chips-list>
+        </div>
+
+        <mat-form-field class="full-width">
+            <input matInput [matDatepicker]="dueDatePicker" placeholder="选择截至日期" formControlName="dueDate">
+            <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #dueDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-input-container class="full-width">
+            <input matInput [matDatepicker]="reminderPicker" placeholder="选择提醒日期" formControlName="reminder">
+            <mat-datepicker-toggle matSuffix [for]="reminderPicker"></mat-datepicker-toggle>
+            <mat-datepicker #reminderPicker></mat-datepicker>
+        </mat-input-container>
+
+        <div class="full-width">
+            <app-chips-list [label]="'更改参与者'" formControlName="followers"></app-chips-list>
+        </div>
+        <mat-input-container class="full-width">
+            <textarea matInput placeholder="备注" formControlName="remark"></textarea>
+        </mat-input-container>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <div class="fill" *ngIf="notConfirm else confirm">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
+                保存
+            </button>
+            <button mat-dialog-close mat-raised-button type="button">关闭</button>
+            <span class="fill-remaining-space">
+          </span>
+            <button mat-button color="warn" type="button" [disabled]="delInvisible" (click)="onDelClick(false)">删除
+            </button>
+        </div>
+    </mat-dialog-actions>
+
+</form>
+
+<ng-template #confirm>
+    <div class="fill">
+        <span class="fill-remaining-space mat-body-2">是否确定删除？</span>
+        <button mat-button color="warn" type="button" (click)="reallyDel()">确定</button>
+        <button mat-raised-button color="primary" type="button" (click)="onDelClick(true)">取消</button>
+    </div>
+</ng-template>

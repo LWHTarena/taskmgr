@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="openSidebar()" *ngIf="(auth$ | async)?.user">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <mat-icon svgIcon="gifts"></mat-icon>
+    <span>企业协作平台</span>
+    <span class="fill-remaining-space"></span>
+    <mat-slide-toggle (change)="onChage($event.checked)">黑夜模式</mat-slide-toggle>
+    <span><a mat-button *ngIf="(auth$ | async)?.user" (click)="logout()">退出</a></span>
+</mat-toolbar>

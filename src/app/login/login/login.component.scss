@@ -1,0 +1,20 @@
+form{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+mat-card {
+  /*margin: 5px 5px;
+  width: 20em;
+  height: 25em;
+  flex: 0 0 20em;*/
+
+  flex: 0 1 20rem;
+}
+
+.text-right{
+  margin:10px;
+  text-align: right;
+}
