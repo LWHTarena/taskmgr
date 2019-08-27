@@ -2,7 +2,8 @@ import {Component, OnInit, ChangeDetectionStrategy, forwardRef, OnDestroy} from 
 import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {getProvinces, getCitiesByProvince, getAreasByCity} from '../../utils/area.util';
 import {Address} from '../../domain';
-import {Observable, Subject, Subscription} from 'rxjs';
+import {combineLatest, Observable, of, Subject, Subscription} from 'rxjs';
+import {map, mergeMap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-area-list',
@@ -49,24 +50,27 @@ export class AreaListComponent implements ControlValueAccessor, OnInit, OnDestro
         const city$ = this._city.asObservable().startWith('');
         const district$ = this._district.asObservable().startWith('');
         const street$ = this._street.asObservable().startWith('');
-        const val$ = Observable.combineLatest([province$, city$, district$, street$], (_p, _c, _d, _s) => {
+        const val$ = combineLatest([province$, city$, district$, street$]).pipe(
+          map((_p, _c, _d, _s) => {
             return {
-                province: _p,
-                city: _c,
-                district: _d,
-                street: _s
+              province: _p,
+              city: _c,
+              district: _d,
+              street: _s
             };
-        });
+          })
+        );
         this._sub = val$.subscribe(v => {
             this.propagateChange(v);
         });
 
         // 根据省份的选择得到城市列表
-        this.cities$ = province$.mergeMap(province => Observable.of(getCitiesByProvince(province)));
+        this.cities$ = province$.pipe(mergeMap(province => of(getCitiesByProvince(province))));
         // 根据省份和城市的选择得到地区列表
-        this.districts$ = Observable
-            .combineLatest(province$, city$, (p, c) => ({province: p, city: c}))
-            .mergeMap(a => Observable.of(getAreasByCity(a.province, a.city)));
+        this.districts$ = combineLatest(province$, city$).pipe(
+          map((p, c) => ({province: p, city: c})),
+          mergeMap(a => of(getAreasByCity(a.province, a.city)))
+        );
 
     }
 

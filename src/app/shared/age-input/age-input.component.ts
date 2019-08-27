@@ -24,7 +24,9 @@ import {
     isFuture,
 } from 'date-fns';
 import {toDate, isValidDate} from '../../utils/date.util';
-import {Observable, Subscription} from 'rxjs';
+import {combineLatest, merge, Observable, Subscription} from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter, map, startWith} from 'rxjs/operators';
+import {debug} from 'util';
 
 export enum AgeUnit {
     Year = 0,
@@ -102,29 +104,32 @@ export class AgeInputComponent implements ControlValueAccessor, OnInit, OnDestro
         const ageNum = this.form.get('age').get('ageNum');
         const ageUnit = this.form.get('age').get('ageUnit');
 
-        const birthday$ = birthday.valueChanges
-            .map(d => ({date: d, from: 'birthday'}))
-            .debounceTime(this.debounceTime)
-            .distinctUntilChanged()
-            .filter(date => birthday.valid);
+        const birthday$ = birthday.valueChanges.pipe(
+          map(d => ({date: d, from: 'birthday'})),
+          debounceTime(this.debounceTime),
+          distinctUntilChanged(),
+          filter(date => birthday.valid)
+        );
 
-        const ageNum$ = ageNum.valueChanges
-            .startWith(ageNum.value)
-            .debounceTime(this.debounceTime)
-            .distinctUntilChanged();
-        const ageUnit$ = ageUnit.valueChanges
-            .startWith(ageUnit.value)
-            .debounceTime(this.debounceTime)
-            .distinctUntilChanged();
-        const age$ = Observable
-            .combineLatest(ageNum$, ageUnit$, (_num, _unit) => this.toDate({age: _num, unit: _unit}))
-            .map(d => ({date: d, from: 'age'}))
-            .filter(_ => this.form.get('age').valid);
+        const ageNum$ = ageNum.valueChanges.pipe(
+          startWith(ageNum.value),
+          debounceTime(this.debounceTime),
+          distinctUntilChanged()
+          );
+        const ageUnit$ = ageUnit.valueChanges.pipe(
+          startWith(ageUnit.value),
+          debounceTime(this.debounceTime),
+          distinctUntilChanged());
+        const age$ = combineLatest(ageNum$, ageUnit$, (_num, _unit) => this.toDate({age: _num, unit: _unit}))
+            .pipe(
+              map(d => ({date: d, from: 'age'})),
+              filter(_ => this.form.get('age').valid)
+              );
 
-        const merged$ = Observable
-            .merge(birthday$, age$)
-            .filter(_ => this.form.valid)
-            .debug('[Age-Input][Merged]:');
+        const merged$ = merge(birthday$, age$).pipe(
+          filter(_ => this.form.valid),
+          debug('[Age-Input][Merged]:')
+          );
         this.subBirth = merged$.subscribe(date => {
             const age = this.toAge(date.date);
             if (date.from === 'birthday') {
@@ -213,15 +218,15 @@ export class AgeInputComponent implements ControlValueAccessor, OnInit, OnDestro
 
             switch (ageUnit.value) {
                 case AgeUnit.Year: {
-                    result = ageNumVal >= this.yearsBottom && ageNumVal <= this.yearsTop
+                    result = ageNumVal >= this.yearsBottom && ageNumVal <= this.yearsTop;
                     break;
                 }
                 case AgeUnit.Month: {
-                    result = ageNumVal >= this.monthsBottom && ageNumVal <= this.monthsTop
+                    result = ageNumVal >= this.monthsBottom && ageNumVal <= this.monthsTop;
                     break;
                 }
                 case AgeUnit.Day: {
-                    result = ageNumVal >= this.daysBottom && ageNumVal <= this.daysTop
+                    result = ageNumVal >= this.daysBottom && ageNumVal <= this.daysTop;
                     break;
                 }
                 default: {
@@ -236,7 +241,7 @@ export class AgeInputComponent implements ControlValueAccessor, OnInit, OnDestro
     }
 
     private toAge(dateStr: string): Age {
-        const date = parse(dateStr);
+        const date = parse(dateStr, 'yyyy-MM-dd', new Date());
         const now = new Date();
         if (isBefore(subDays(now, this.daysTop), date)) {
             return {

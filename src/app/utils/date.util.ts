@@ -1,7 +1,7 @@
 import {isFuture, isDate, isValid, differenceInYears, parse, format} from 'date-fns';
 
 export const isValidDate = (dateStr: string) => {
-    const date = parse(dateStr);
+    const date = parse(dateStr, 'YYYY-MM-DD', new Date());
     return isDate(date) && isValid(date) && !isFuture(date);
 };
 

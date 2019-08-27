@@ -22,6 +22,7 @@ export const getAddrByCode = (code) => {
     const districtStr = GB2260[code];
     const city = cityStr.replace(provinceStr, '');
     const district = districtStr.replace(cityStr, '');
+
     return {
         province: provinceStr,
         city: city,
