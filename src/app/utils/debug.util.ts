@@ -1,14 +1,9 @@
-import {Observable} from 'rxjs/Observable';
+import {pipe} from 'rxjs/index';
 import {environment} from '../../environments/environment';
+import {tap} from 'rxjs/internal/operators';
 
-declare module 'rxjs/Observable' {
-  interface Observable<T> {
-    debug: (...any) => Observable<T>;
-  }
-}
-
-Observable.prototype.debug = function(message: string) {
-  return this.do(
+export const debug = (message: string) => pipe(
+  tap(
     (next) => {
       if (!environment.production) {
         console.log(message, next);
@@ -16,7 +11,7 @@ Observable.prototype.debug = function(message: string) {
     },
     (err) => {
       if (!environment.production) {
-        console.error('ERROR>>>', message, err);
+        console.error('ERROR >>', message, err);
       }
     },
     () => {
@@ -24,5 +19,5 @@ Observable.prototype.debug = function(message: string) {
         console.log('Completed - ');
       }
     }
-  );
-};
+  )
+);
