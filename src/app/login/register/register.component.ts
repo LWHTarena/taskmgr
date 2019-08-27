@@ -1,13 +1,12 @@
 import {Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
 import {extractInfo, getAddrByCode, isValidAddr} from '../../utils/identity.util';
 import {isValidDate, toDate} from '../../utils/date.util';
 
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../reducers';
 import * as actions from '../../actions/auth.action';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-register',

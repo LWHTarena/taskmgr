@@ -1,4 +1,3 @@
-///<reference path="../../../../node_modules/@angular/forms/src/directives/control_value_accessor.d.ts"/>
 import {Component, OnInit, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS} from '@angular/forms';
 

@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
-import {take} from 'rxjs/operators';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 export interface DragData {
   tag: string; // 用于标识该拖拽对象，在具有多个可拖拽的层级中标识该层级，需要用户自己维护唯一性

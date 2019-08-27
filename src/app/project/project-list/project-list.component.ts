@@ -6,12 +6,12 @@ import {ConfirmDialogComponent} from '../../shared/confirm-dialog/confirm-dialog
 import {slideToRight} from '../../anim/router.anim';
 import {listAnimation} from '../../anim/list.anim';
 import {Project} from '../../domain';
-import {Observable} from 'rxjs/Observable';
 import * as _ from 'lodash';
 
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../reducers';
 import * as actions from '../../actions/project.action';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-project-list',

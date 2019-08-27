@@ -23,9 +23,8 @@ import {
     isDate,
     isFuture,
 } from 'date-fns';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
 import {toDate, isValidDate} from '../../utils/date.util';
+import {Observable, Subscription} from 'rxjs';
 
 export enum AgeUnit {
     Year = 0,

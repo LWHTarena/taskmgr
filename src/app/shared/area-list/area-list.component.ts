@@ -1,10 +1,8 @@
 import {Component, OnInit, ChangeDetectionStrategy, forwardRef, OnDestroy} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {getProvinces, getCitiesByProvince, getAreasByCity} from '../../utils/area.util';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {Subscription} from 'rxjs/Subscription';
 import {Address} from '../../domain';
+import {Observable, Subject, Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-area-list',

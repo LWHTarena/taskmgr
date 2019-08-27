@@ -1,11 +1,9 @@
 import {ChangeDetectionStrategy, Component, forwardRef, OnInit, OnDestroy} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
 import {Identity, IdentityType} from '../../domain';
 import {isValidAddr, extractInfo} from '../../utils/identity.util';
 import {isValidDate} from '../../utils/date.util';
+import {Observable, Subject, Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-identity-input',

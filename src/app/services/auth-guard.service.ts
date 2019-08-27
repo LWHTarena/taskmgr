@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
 
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../reducers';
+import {Observable} from 'rxjs';
 
 
 @Injectable()

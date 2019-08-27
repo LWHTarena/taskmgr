@@ -1,8 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpHeaders, HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
 import * as _ from 'lodash';
 import {Project, User} from '../domain';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class ProjectService {

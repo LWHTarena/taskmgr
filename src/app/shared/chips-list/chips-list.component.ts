@@ -7,9 +7,9 @@ import {
     NG_VALIDATORS,
     NG_VALUE_ACCESSOR
 } from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
 import {UserService} from '../../services';
 import {User} from '../../domain';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-chips-list',

@@ -1,8 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpHeaders, HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
 import {Project, TaskList} from '../domain';
-import {concat} from 'rxjs/observable/concat';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class TaskListService {

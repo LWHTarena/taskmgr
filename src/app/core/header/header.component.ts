@@ -2,10 +2,10 @@ import {Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy} from '
 
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../reducers';
-import {Observable} from 'rxjs/Observable';
 import {Auth} from '../../domain';
 
 import * as actions from '../../actions/auth.action';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-header',

@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
 import {Auth, User} from '../domain';
+import {Observable} from 'rxjs';
 
 /**
  * 认证服务主要用于用户的注册和登录功能

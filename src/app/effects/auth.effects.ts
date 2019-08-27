@@ -3,8 +3,6 @@ import {Actions, Effect} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
 import {Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
-// import {Observable} from 'rxjs/Observable';
-// import {of} from 'rxjs/observable/of';
 
 import {AuthService} from '../services';
 import * as actions from '../actions/auth.action';
