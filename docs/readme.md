@@ -8,6 +8,8 @@ rxjs5.5以上使用pipe方法而非链式调用。所有链式的起点都用Pip
 
 在使用angular的时候，很多情况需要使用debounceTime
 
+do/tab 透明地执行操作或副作用，比如打印日志。
+
 ## date-fns 使用
 date-fns 提供了最全面，最简单和一致的工具集，用于在浏览器和 Node.js 中操作 JavaScript 日期
 
