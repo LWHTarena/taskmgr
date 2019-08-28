@@ -1,5 +1,6 @@
 import {Directive, Input, Output, EventEmitter, HostListener, ElementRef, Renderer2} from '@angular/core';
 import {DragDropService, DragData} from '../drag-drop.service';
+import {take} from 'rxjs/operators';
 
 @Directive({
     selector: '[app-droppable][dropTags][dragEnterClass]',
@@ -14,7 +15,7 @@ export class DropDirective {
     constructor(private el: ElementRef,
                 private rd: Renderer2,
                 private service: DragDropService) {
-        this.drag$ = this.service.getDragData().take(1);
+        this.drag$ = this.service.getDragData().pipe(take(1));
     }
 
     @HostListener('dragenter', ['$event'])
