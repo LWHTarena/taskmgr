@@ -7,6 +7,7 @@ import {Store} from '@ngrx/store';
 import * as fromRoot from '../../reducers';
 import * as actions from '../../actions/auth.action';
 import {Observable, Subscription} from 'rxjs';
+import {debounceTime, filter} from 'rxjs/operators';
 
 @Component({
     selector: 'app-register',
@@ -42,9 +43,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
             identity: []
         });
 
-        const id$ = this.form.get('identity').valueChanges
-            .debounceTime(300)
-            .filter(v => this.form.get('identity').valid);
+        const id$ = this.form.get('identity').valueChanges.pipe(
+          debounceTime(300),
+          filter(v => this.form.get('identity').valid)
+        );
 
         this._sub = id$.subscribe(id => {
             const info = extractInfo(id.identityNo);
