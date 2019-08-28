@@ -12,6 +12,7 @@ import {Store} from '@ngrx/store';
 import * as fromRoot from '../../reducers';
 import * as actions from '../../actions/project.action';
 import {Observable} from 'rxjs';
+import {filter, map, take} from 'rxjs/operators';
 
 @Component({
     selector: 'app-project-list',
@@ -31,7 +32,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
                 private store$: Store<fromRoot.State>) {
         this.store$.dispatch(new actions.LoadProjectsAction({}));
         this.projects$ = this.store$.select(fromRoot.getProjects);
-        this.listAnim$ = this.projects$.map(p => p.length);
+        this.listAnim$ = this.projects$.pipe(map(p => p.length));
     }
 
     ngOnInit() {
@@ -48,23 +49,24 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         const img = `/assets/img/covers/${Math.floor(Math.random() * 40)}_tn.jpg`;
         const dialogRef = this.dialog.open(NewProjectComponent,
             {data: {thumbnails: this.getThumbnailsObs(), img: img}});
-        dialogRef.afterClosed()
-            .take(1)           // 不用去销毁，自动完成状态
-            .filter(n => n)
-            .map(val => ({...val, coverImg: this.buildImgSrc(val.coverImg)}))
-            .subscribe(project => {
-                this.store$.dispatch(new actions.AddProjectAction(project));
-            });
+        dialogRef.afterClosed().pipe(
+          take(1),           // 不用去销毁，自动完成状态
+          filter(n => n),
+          map(val => ({...val, coverImg: this.buildImgSrc(val.coverImg)}))
+        ). subscribe(project => {
+          this.store$.dispatch(new actions.AddProjectAction(project));
+        });
     }
 
     launchInvite(project) {
         let members = [];
-        this.store$.select(fromRoot.getProjectMembers(project.id))
-            .take(1)
-            .subscribe(m => members = m);
+        this.store$.select(fromRoot.getProjectMembers(project.id)).pipe(
+          take(1)
+        ).subscribe(m => members = m);
+
         const dialogRef = this.dialog.open(InviteComponent, {data: {members: members}});
         // 使用 take(1) 来自动销毁订阅，因为 take(1) 意味着接收到 1 个数据后就完成了
-        dialogRef.afterClosed().take(1).subscribe(val => {
+        dialogRef.afterClosed().pipe(take(1)).subscribe(val => {
             if (val) {
                 this.store$.dispatch(new actions.InviteMembersAction({projectId: project.id, members: val}));
             }
@@ -74,23 +76,23 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     launchUpdateDialog(project: Project) {
         const dialogRef = this.dialog.open(NewProjectComponent,
             {data: {thumbnails: this.getThumbnailsObs(), project: project}});
-        dialogRef.afterClosed()
-            .take(1)           // 不用去销毁，自动完成状态
-            .filter(n => n)
-            .map(val => ({...val, id: project.id, coverImg: this.buildImgSrc(val.coverImg)}))
-            .subscribe(val => {
-                this.store$.dispatch(new actions.UpdateProjectAction(val));
-            });
+        dialogRef.afterClosed().pipe(
+          take(1),           // 不用去销毁，自动完成状态
+          filter(n => n),
+          map(val => ({...val, id: project.id, coverImg: this.buildImgSrc(val.coverImg)})),
+        ).subscribe(val => {
+          this.store$.dispatch(new actions.UpdateProjectAction(val));
+        });
     }
 
     launchConfirmDialog(project) {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {title: '删除项目', content: '你确认删除该项目吗?'}});
-        dialogRef.afterClosed()
-            .take(1)           // 不用去销毁，自动完成状态
-            .filter(n => n)
-            .subscribe(prj => {
-                this.store$.dispatch(new actions.DeleteProjectAction(project));
-            });
+        dialogRef.afterClosed().pipe(
+          take(1),           // 不用去销毁，自动完成状态
+          filter(n => n),
+        ).subscribe(prj => {
+          this.store$.dispatch(new actions.DeleteProjectAction(project));
+        });
     }
 
     private getThumbnailsObs() {
