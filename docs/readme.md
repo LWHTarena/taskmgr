@@ -37,3 +37,23 @@ differenceInHours()	获得两个时间相差的小时数
 differenceInMinutes()	获得两个时间相差的分钟数
 
 
+## angular 变动
+
+1、ViewChild() 同理有`@ContentChild('editTemplate',{ read: true, static: false })`
+```typescript
+Before:
+
+@ViewChild('foo') foo: ElementRef;
+
+After:
+
+// query results available in ngOnInit
+@ViewChild('foo', {static: true}) foo: ElementRef;
+
+OR
+
+// query results available in ngAfterViewInit
+@ViewChild('foo', {static: false}) foo: ElementRef;
+```
+
+
