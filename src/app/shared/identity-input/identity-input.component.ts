@@ -3,7 +3,7 @@ import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} fro
 import {Identity, IdentityType} from '../../domain';
 import {isValidAddr, extractInfo} from '../../utils/identity.util';
 import {isValidDate} from '../../utils/date.util';
-import {Observable, Subject, Subscription} from 'rxjs';
+import {combineLatest, Observable, Subject, Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-identity-input',
@@ -46,7 +46,7 @@ export class IdentityInputComponent implements ControlValueAccessor, OnInit, OnD
     ngOnInit() {
         const idType$ = this.idType;
         const idNo$ = this.idNo;
-        const val$ = Observable.combineLatest(idType$, idNo$, (_type, _no) => {
+        const val$ = combineLatest(idType$, idNo$, (_type, _no) => {
             return {
                 identityType: _type,
                 identityNo: _no

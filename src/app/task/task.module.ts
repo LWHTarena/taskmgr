@@ -14,7 +14,7 @@ import { QuickTaskComponent } from './quick-task/quick-task.component';
 @NgModule({
     imports: [
         SharedModule,
-        TaskRoutingModule,
+        // TaskRoutingModule,
     ],
     declarations: [
         TaskHomeComponent,

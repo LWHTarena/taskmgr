@@ -10,6 +10,7 @@ import {
 import {UserService} from '../../services';
 import {User} from '../../domain';
 import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter, startWith, switchMap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-chips-list',
@@ -127,11 +128,13 @@ export class ChipsListComponent implements ControlValueAccessor, OnInit {
     }
 
     searchUsers(obs: Observable<string>): Observable<User[]> {
-        return obs.startWith('')
-            .debounceTime(300)
-            .distinctUntilChanged()
-            .filter(s => s && s.length > 1)
-            .switchMap(str => this.service.searchUsers(str));
+        return obs.pipe(
+          startWith(''),
+          debounceTime(300),
+          distinctUntilChanged(),
+          filter(s => s && s.length > 1),
+          switchMap(str => this.service.searchUsers(str))
+        );
     }
 
     get displayInput() {

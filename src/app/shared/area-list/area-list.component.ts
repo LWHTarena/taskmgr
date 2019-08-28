@@ -3,7 +3,7 @@ import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} fro
 import {getProvinces, getCitiesByProvince, getAreasByCity} from '../../utils/area.util';
 import {Address} from '../../domain';
 import {combineLatest, Observable, of, Subject, Subscription} from 'rxjs';
-import {map, mergeMap} from 'rxjs/operators';
+import {map, mergeMap, startWith} from 'rxjs/operators';
 
 @Component({
     selector: 'app-area-list',
@@ -46,10 +46,10 @@ export class AreaListComponent implements ControlValueAccessor, OnInit, OnDestro
 
     ngOnInit() {
 
-        const province$ = this._province.asObservable().startWith('');
-        const city$ = this._city.asObservable().startWith('');
-        const district$ = this._district.asObservable().startWith('');
-        const street$ = this._street.asObservable().startWith('');
+        const province$ = this._province.asObservable().pipe(startWith(''));
+        const city$ = this._city.asObservable().pipe(startWith(''));
+        const district$ = this._district.asObservable().pipe(startWith(''));
+        const street$ = this._street.asObservable().pipe(startWith(''));
         const val$ = combineLatest([province$, city$, district$, street$]).pipe(
           map((_p, _c, _d, _s) => {
             return {

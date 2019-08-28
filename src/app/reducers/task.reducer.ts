@@ -84,7 +84,7 @@ export function reducer(state = initialState, action: actions.Actions): State {
         case actions.ActionTypes.MOVE_SUCCESS:
         case actions.ActionTypes.COMPLETE_SUCCESS:
         case actions.ActionTypes.UPDATE_SUCCESS:
-            return <State>updateTask(state, action);
+            return <State> updateTask(state, action);
         case actions.ActionTypes.LOAD_IN_LISTS_SUCCESS:
             return loadTasks(state, action);
         case actions.ActionTypes.MOVE_ALL_SUCCESS:
