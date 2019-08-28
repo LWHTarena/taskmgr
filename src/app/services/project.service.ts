@@ -24,7 +24,7 @@ export class ProjectService {
         const uri = `${this.config.uri}/${this.domain}`;
         return this.http
             .post(uri, JSON.stringify(project), {headers: this.headers})
-            .map(res => res as Project);
+            .pipe(map(res => res as Project));
     }
 
     // PUT /projects
