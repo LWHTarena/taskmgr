@@ -18,12 +18,12 @@ export class UserService {
 
     searchUsers(filter: string): Observable<User[]> {
         const uri = `${this.config.uri}/${this.domain}`;
-        return this.http.get(uri, {params: {'email_like': filter}}).pipe(map(res => res as User[]));
+        return this.http.get(uri, {params: {email_like: filter}}).pipe(map(res => res as User[]));
     }
 
     getUsersByProject(projectId: string): Observable<User[]> {
         const uri = `${this.config.uri}/users`;
-        return this.http.get(uri, {params: {'projectId': projectId}}).pipe(map(res => res as User[]));
+        return this.http.get(uri, {params: {projectId: projectId}}).pipe(map(res => res as User[]));
     }
 
     addProjectRef(user: User, projectId: string): Observable<User> {
@@ -51,7 +51,7 @@ export class UserService {
           }),
           filter(user => user.projectIds.indexOf(projectId) < 0),
           switchMap(u => this.addProjectRef(u, projectId)),
-          reduce((users, curr) => [...users, curr], [])
+          reduce((users, curr) => [...users, curr] , [])
         );
     }
 }

@@ -51,14 +51,7 @@ export class AreaListComponent implements ControlValueAccessor, OnInit, OnDestro
         const district$ = this._district.asObservable().pipe(startWith(''));
         const street$ = this._street.asObservable().pipe(startWith(''));
         const val$ = combineLatest([province$, city$, district$, street$]).pipe(
-          map((_p, _c, _d, _s) => {
-            return {
-              province: _p,
-              city: _c,
-              district: _d,
-              street: _s
-            };
-          })
+          map(([_p, _c, _d, _s]) => ({province: _p, city: _c, district: _d, street: _s}))
         );
         this._sub = val$.subscribe(v => {
             this.propagateChange(v);
@@ -66,12 +59,25 @@ export class AreaListComponent implements ControlValueAccessor, OnInit, OnDestro
 
         // 根据省份的选择得到城市列表
         this.cities$ = province$.pipe(mergeMap(province => of(getCitiesByProvince(province))));
-        // 根据省份和城市的选择得到地区列表
+
+      /**
+       * <quote>
+       *   combineLatest(a$, b$, c$).pipe(
+       *   map(x => resultSelector(...x))
+       *   )
+       *
+       *   // or
+       *
+       *   combineLatest([a$, b$, c$]).pipe(
+       *   map(x => resultSelector(...x))
+       *   )
+       * </quote>
+       */
+      // 根据省份和城市的选择得到地区列表
         this.districts$ = combineLatest(province$, city$).pipe(
-          map((p, c) => ({province: p, city: c})),
+          map(([p, c]) => ({province: p, city: c})),
           mergeMap(a => of(getAreasByCity(a.province, a.city)))
         );
-
     }
 
     ngOnDestroy() {
