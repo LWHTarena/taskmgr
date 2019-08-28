@@ -23,7 +23,7 @@ export const initialState: State = {
 };
 
 const addTask = (state, action) => {
-    if (state.entities[(<Task>action.payload).id]) {
+    if (state.entities[(action.payload as Task).id]) {
         return state;
     }
     return addOne(state, action.payload);
@@ -34,7 +34,7 @@ const delTask = (state, action) => {
 };
 
 const loadTasks = (state, action) => {
-    if ((<Task[]>action.payload).length === 0) {
+    if ((action.payload as Task[]).length === 0) {
         return state;
     }
 
@@ -51,7 +51,7 @@ const loadTasks = (state, action) => {
 };
 
 const moveAllTasks = (state, action) => {
-    const tasks = <Task[]>action.payload;
+    const tasks = action.payload as Task[];
     // if task is null then return the orginal state
     if (tasks === null) {
         return state;
@@ -62,7 +62,7 @@ const moveAllTasks = (state, action) => {
 };
 
 const delTasksByPrj = (state, action) => {
-    const project = <Project>action.payload;
+    const project = action.payload as Project;
     const listIds = project.taskLists;
     const remainingIds = state.ids.filter(id => _.indexOf(listIds, state.entities[id].taskListId) === -1);
     const remainingEntities = buildObjFromArr(remainingIds, state.entities);
@@ -84,7 +84,7 @@ export function reducer(state = initialState, action: actions.Actions): State {
         case actions.ActionTypes.MOVE_SUCCESS:
         case actions.ActionTypes.COMPLETE_SUCCESS:
         case actions.ActionTypes.UPDATE_SUCCESS:
-            return <State> updateTask(state, action);
+            return updateTask(state, action) as State;
         case actions.ActionTypes.LOAD_IN_LISTS_SUCCESS:
             return loadTasks(state, action);
         case actions.ActionTypes.MOVE_ALL_SUCCESS:

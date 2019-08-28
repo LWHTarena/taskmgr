@@ -18,7 +18,7 @@ export const initialState: State = {
 };
 
 const addList = (state, action) => {
-    const taskList = <TaskList>action.payload;
+    const taskList = action.payload;
     if (state.ids.indexOf(taskList.id) > -1) {
         return state;
     }
@@ -32,19 +32,19 @@ const addList = (state, action) => {
 };
 
 const delList = (state, action) => {
-    const taskList = <TaskList>action.payload;
+    const taskList = action.payload as TaskList;
     const newIds = state.ids.filter(id => id !== taskList.id);
     const newEntities = buildObjFromArr(newIds, state.entities);
     const selectedIds = state.selectedIds.filter(id => id !== taskList.id);
     return {
         ids: newIds,
         entities: newEntities,
-        selectedIds: selectedIds
+        selectedIds
     };
 };
 
 const delListByPrj = (state, action) => {
-    const project = <Project>action.payload;
+    const project = action.payload as Project;
     const taskListIds = project.taskLists;
     const remaningIds = _.difference(state.ids, taskListIds);
     const remainingEntities = buildObjFromArr(remaningIds, state.entities);
@@ -57,13 +57,13 @@ const delListByPrj = (state, action) => {
 };
 
 const updateList = (state: State, action) => {
-    const taskList = <TaskList>action.payload;
+    const taskList = action.payload as TaskList;
     const entities = {...state.entities, [taskList.id]: taskList};
-    return {...state, entities: entities};
+    return {...state, entities};
 };
 
 const swapOrder = (state, action) => {
-    const taskLists = <TaskList[]>action.payload;
+    const taskLists = action.payload as TaskList[];
     if (taskLists === null) {
         return state;
     }
@@ -73,7 +73,7 @@ const swapOrder = (state, action) => {
 };
 
 const loadLists = (state, action) => {
-    const taskLists = <TaskList[]>action.payload;
+    const taskLists = action.payload as TaskList[];
     // if taskList is null then return the orginal state
     if (taskLists === null) {
         return state;
@@ -92,8 +92,8 @@ const loadLists = (state, action) => {
 };
 
 const selectPrj = (state: State, action) => {
-    const selectedIds = state.ids.filter(id => state.entities[id].projectId === (<Project>action.payload).id);
-    return {...state, selectedIds: selectedIds};
+    const selectedIds = state.ids.filter(id => state.entities[id].projectId === (action.payload as Project).id);
+    return {...state, selectedIds};
 };
 
 export function reducer(state = initialState, action: actions.Actions): State {

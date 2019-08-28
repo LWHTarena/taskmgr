@@ -15,7 +15,7 @@ export const initialState: State = {
 };
 
 const register = (state, action) => {
-    const auth = <Auth>action.payload;
+    const auth = action.payload as Auth;
     if (state.ids.indexOf(auth.userId) > -1) {
         return {...state, entities: {...state.entities, [auth.user.id]: auth.user}};
     } else {
@@ -27,18 +27,18 @@ const register = (state, action) => {
 };
 
 const addPrjRef = (state, action) => {
-    const user = <User>action.payload;
+    const user = action.payload as User;
     const ids = [...state.ids, user.id];
     const entities = {...state.entities, [user.id]: user};
     if (state.entities[user.id]) {
-        return {...state, entities: entities};
+        return {...state, entities};
     } else {
-        return {...state, ids: ids, entities: entities};
+        return {...state, ids, entities};
     }
 };
 
 const removePrjRef = (state, action) => {
-    const user = <User>action.payload;
+    const user = action.payload as User;
     if (!state.entities[user.id]) {
         return state;
     }
@@ -46,7 +46,7 @@ const removePrjRef = (state, action) => {
 };
 
 const searchUsers = (state, action) => {
-    const users = <User[]>action.payload;
+    const users = action.payload as User[];
     if (users === null) {
         return state;
     }
@@ -63,7 +63,7 @@ const searchUsers = (state, action) => {
 };
 
 const loadByPrj = (state, action) => {
-    const users = <User[]>action.payload;
+    const users = action.payload as User[];
     if (users === null) {
         return state;
     }
@@ -80,7 +80,7 @@ const loadByPrj = (state, action) => {
 };
 
 const batchUpdatePrjRef = (state: State, action) => {
-    const users = <User[]>action.payload;
+    const users = action.payload as User[];
     const userProjects = covertArrToObj(users);
     const newEnities = {...state.entities, ...userProjects};
     return {...state, entities: newEnities};
