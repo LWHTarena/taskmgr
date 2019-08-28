@@ -120,8 +120,8 @@ export class AgeInputComponent implements ControlValueAccessor, OnInit, OnDestro
           startWith(ageUnit.value),
           debounceTime(this.debounceTime),
           distinctUntilChanged());
-        const age$ = combineLatest(ageNum$, ageUnit$, (_num, _unit) => this.toDate({age: _num, unit: _unit}))
-            .pipe(
+        const age$ = combineLatest(ageNum$, ageUnit$).pipe(
+              map(([_num, _unit]) => this.toDate({age: _num, unit: _unit})),
               map(d => ({date: d, from: 'age'})),
               filter(_ => this.form.get('age').valid)
               );

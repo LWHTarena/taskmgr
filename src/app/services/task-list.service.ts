@@ -64,8 +64,8 @@ export class TaskListService {
       this.add({name: '待办', projectId: id, order: 1}),
       this.add({name: '进行中', projectId: id, order: 2}),
       this.add({name: '已完成', projectId: id, order: 3})).pipe(
-      reduce((r, x) => [...r, x], []),
-      map(tls => ({...prj, taskLists: tls.map(tl => tl.id)}))
+        reduce((r, x) => [...r, x], []),
+        map(tls => ({...prj, taskLists: tls.map(tl => tl.id)}))
     );
   }
 }
