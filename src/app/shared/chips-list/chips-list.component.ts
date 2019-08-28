@@ -34,7 +34,22 @@ export class ChipsListComponent implements ControlValueAccessor, OnInit {
     // fix the lint complaints about using a reference in template
     // It seems tslint requires now that a `@ViewChild` need to be declared
     // 'you are using blablabla that you're trying to access does not exist in the class declaration.'
-    @ViewChild('autoMember') autoMember;
+  /**
+   * Before:
+   * @ViewChild('foo') foo: ElementRef;
+   *
+   * After:
+   * // query results available in ngOnInit
+   * @ViewChild('foo', {static: true}) foo: ElementRef;
+   *
+   * OR
+   *
+   * // query results available in ngAfterViewInit
+   * @ViewChild('foo', {static: false}) foo: ElementRef;
+   */
+    // @ViewChild('autoMember') autoMember;
+    @ViewChild('autoMember', {static: true}) autoMember;
+
     @Input() multiple = true;
     @Input() label = '添加/修改成员';
     @Input() placeholderText = '请输入成员 email';
