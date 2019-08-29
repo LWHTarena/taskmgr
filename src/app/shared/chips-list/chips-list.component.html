@@ -5,9 +5,9 @@
             {{member.name}} <span (click)="removeMember(member)" class="remove-tag">x</span>
         </mat-chip>
     </mat-chip-list>
-    <mat-input-container *ngIf="displayInput" class="full-width">
-        <input matInput [placeholder]="placeholderText" [matAutocomplete]="autoMember" formControlName="memberSearch">
-    </mat-input-container>
+  <mat-form-field *ngIf="displayInput" class="full-width">
+    <input matInput [placeholder]="placeholderText" [matAutocomplete]="autoMember" formControlName="memberSearch">
+  </mat-form-field>
 </div>
 <mat-autocomplete #autoMember="matAutocomplete" [displayWith]="displayUser">
     <mat-option

@@ -21,19 +21,19 @@
             <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #dueDatePicker></mat-datepicker>
         </mat-form-field>
-
-        <mat-input-container class="full-width">
-            <input matInput [matDatepicker]="reminderPicker" placeholder="选择提醒日期" formControlName="reminder">
-            <mat-datepicker-toggle matSuffix [for]="reminderPicker"></mat-datepicker-toggle>
-            <mat-datepicker #reminderPicker></mat-datepicker>
-        </mat-input-container>
+      <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="reminderPicker" placeholder="选择提醒日期" formControlName="reminder">
+        <mat-datepicker-toggle matSuffix [for]="reminderPicker"></mat-datepicker-toggle>
+        <mat-datepicker #reminderPicker></mat-datepicker>
+      </mat-form-field>
 
         <div class="full-width">
             <app-chips-list [label]="'更改参与者'" formControlName="followers"></app-chips-list>
         </div>
-        <mat-input-container class="full-width">
-            <textarea matInput placeholder="备注" formControlName="remark"></textarea>
-        </mat-input-container>
+
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="备注" formControlName="remark"></textarea>
+      </mat-form-field>
     </mat-dialog-content>
 
     <mat-dialog-actions>

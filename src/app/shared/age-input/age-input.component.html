@@ -9,9 +9,9 @@
     </div>
     <ng-container formGroupName="age">
         <div class="age-num">
-            <mat-input-container>
-                <input matInput type="number" placeholder="年龄" formControlName="ageNum">
-            </mat-input-container>
+          <mat-form-field>
+            <input matInput type="number" placeholder="年龄" formControlName="ageNum">
+          </mat-form-field>
         </div>
         <div>
             <mat-button-toggle-group formControlName="ageUnit" [(ngModel)]="selectedUnit">

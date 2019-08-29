@@ -75,3 +75,5 @@ OR
     );
   }
 ```
+
+3、mat-input-container 过期，被mat-form-field取代 [详见](https://github.com/angular/material2/blob/master/CHANGELOG.md#600-beta5-2018-03-23)
