@@ -1,6 +1,6 @@
 # 知识点
 
-## rxjs 常见管道操作符
+## rxjs 常见管道操作符(version 6.x)
 
 pipe来包裹所有操作符方法，使。移除，用逗号连接。
 
@@ -9,6 +9,12 @@ rxjs5.5以上使用pipe方法而非链式调用。所有链式的起点都用Pip
 在使用angular的时候，很多情况需要使用debounceTime
 
 do/tab 透明地执行操作或副作用，比如打印日志。
+
+### 1、concat
+
+    通过顺序地发出多个 Observables 的值将它们连接起来，一个接一个的。
+    
+    
 
 ## date-fns 使用
 date-fns 提供了最全面，最简单和一致的工具集，用于在浏览器和 Node.js 中操作 JavaScript 日期
@@ -40,7 +46,7 @@ differenceInMinutes()	获得两个时间相差的分钟数
 ## angular 变动
 
 1、ViewChild() 同理有`@ContentChild('editTemplate',{ read: true, static: false })`
-```typescript
+```javascript
 Before:
 
 @ViewChild('foo') foo: ElementRef;
@@ -56,4 +62,16 @@ OR
 @ViewChild('foo', {static: false}) foo: ElementRef;
 ```
 
-
+2、rxjs 的箭头函数要带入参类型
+```javascript
+  initializeTaskLists(prj: Project): Observable<Project> {
+    const id = prj.id;
+    return merge(
+      this.add({name: '待办', projectId: id, order: 1}),
+      this.add({name: '进行中', projectId: id, order: 2}),
+      this.add({name: '已完成', projectId: id, order: 3})).pipe(
+        reduce((r, x: Project) => [...r, x], []),
+        map(tls => ({...prj, taskLists: tls.map(tl => tl.id)}))
+    );
+  }
+```
