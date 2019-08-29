@@ -99,12 +99,17 @@ export const reducers: ActionReducerMap<State> = {
 
 // console.log all actions
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
-    return function (state: State, action: any): State {
-        // console.log('state', state);
-        // console.log('action', action);
-
-        return reducer(state, action);
-    };
+    // return function (state: State, action: any): State {
+    //     // console.log('state', state);
+    //     // console.log('action', action);
+    //
+    //     return reducer(state, action);
+    // };
+  return  (state: State, action: any) => {
+    console.log('state', state);
+    console.log('action', action);
+    return reducer(state, action);
+  };
 }
 
 // noinspection TypeScriptValidateTypes
@@ -159,7 +164,7 @@ export const getProjectMembers = (projectId: string) => createSelector(getProjec
 export const getAuth = createSelector(getCurrentAuth, getUserEntities, (_auth, _entities) => {
     return {..._auth, user: _entities[_auth.userId]};
 });
-export const getAuthUser = createSelector(getCurrentAuth, getUserEntities, (_auth, _entities) => {
+export const getAuthUser = createSelector(getCurrentAuth, getUserEntities, ( _auth , _entities) => {
     return _entities[_auth.userId];
 });
 export const getMaxListOrder = createSelector(getTaskListEntities, getTaskListSelectedIds, (entities, ids) => {
