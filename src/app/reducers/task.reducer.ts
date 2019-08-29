@@ -9,7 +9,6 @@ import {
     // loadCollection
 } from '../utils/reduer.util';
 import * as actions from '../actions/task.action';
-import * as prjActions from '../actions/project.action';
 import * as _ from 'lodash';
 
 export interface State {
@@ -79,7 +78,7 @@ export function reducer(state = initialState, action: actions.Actions): State {
             return addTask(state, action);
         case actions.ActionTypes.DELETE_SUCCESS:
             return delTask(state, action);
-        case prjActions.ActionTypes.DELETE_SUCCESS:
+        case actions.ActionTypes.DELETE_SUCCESS:
             return delTasksByPrj(state, action);
         case actions.ActionTypes.MOVE_SUCCESS:
         case actions.ActionTypes.COMPLETE_SUCCESS:

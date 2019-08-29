@@ -96,7 +96,7 @@ const selectPrj = (state: State, action) => {
     return {...state, selectedIds};
 };
 
-export function reducer(state = initialState, action: actions.Actions): State {
+export function reducer(state = initialState, action: actions.Actions|prjActions.Actions): State {
     switch (action.type) {
         case actions.ActionTypes.ADD_SUCCESS:
             return addList(state, action);

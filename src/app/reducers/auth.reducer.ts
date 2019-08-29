@@ -8,7 +8,7 @@ export function reducer(state: Auth = initialState, action: actions.Actions): Au
     switch (action.type) {
         case actions.ActionTypes.LOGIN_SUCCESS:
         case actions.ActionTypes.REGISTER_SUCCESS: {
-            const auth = <Auth>action.payload;
+            const auth = action.payload as Auth;
             return {
                 user: auth.user,
                 token: auth.token,
@@ -17,7 +17,7 @@ export function reducer(state: Auth = initialState, action: actions.Actions): Au
         }
         case actions.ActionTypes.LOGIN_FAIL:
         case actions.ActionTypes.REGISTER_FAIL: {
-            return {err: <Err>action.payload};
+            return {err: action.payload as Err};
         }
         default: {
             return state;
