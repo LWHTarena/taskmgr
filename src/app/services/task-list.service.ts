@@ -49,13 +49,11 @@ export class TaskListService {
   swapOrder(src: TaskList, target: TaskList): Observable<TaskList[]> {
     const dragUri = `${this.config.uri}/${this.domain}/${src.id}`;
     const dropUri = `${this.config.uri}/${this.domain}/${target.id}`;
-    const drag$ = this.http
-      .patch(dragUri, JSON.stringify({order: target.order}), {headers: this.headers})
+    const drag$ = this.http.patch(dragUri, JSON.stringify({order: target.order}), {headers: this.headers})
       .pipe(map(res => res as TaskList));
-    const drop$ = this.http
-      .patch(dropUri, JSON.stringify({order: src.order}), {headers: this.headers})
+    const drop$ = this.http.patch(dropUri, JSON.stringify({order: src.order}), {headers: this.headers})
       .pipe(map(res => res as TaskList));
-    return concat(drag$, drop$).pipe(reduce((arrs, list) =>[...arrs, list], []));
+    return concat(drag$, drop$).pipe(reduce((arrs, list: TaskList) => [...arrs, list], []));
   }
 
   initializeTaskLists(prj: Project): Observable<Project> {
@@ -64,7 +62,7 @@ export class TaskListService {
       this.add({name: '待办', projectId: id, order: 1}),
       this.add({name: '进行中', projectId: id, order: 2}),
       this.add({name: '已完成', projectId: id, order: 3})).pipe(
-        reduce((r, x) => [...r, x], []),
+        reduce((r, x: Project) => [...r, x], []),
         map(tls => ({...prj, taskLists: tls.map(tl => tl.id)}))
     );
   }

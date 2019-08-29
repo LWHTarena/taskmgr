@@ -51,7 +51,7 @@ export class UserService {
           }),
           filter(user => user.projectIds.indexOf(projectId) < 0),
           switchMap(u => this.addProjectRef(u, projectId)),
-          reduce((users, curr) => [...users, curr] , [])
+          reduce((users, curr: Project) => [...users, curr] , [])
         );
     }
 }

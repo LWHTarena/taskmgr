@@ -66,7 +66,7 @@ export class TaskService {
     return this.get(srcListId).pipe(
       mergeMap(tasks => from(tasks)),
       mergeMap(task => this.move(task.id, targetListId)),
-      reduce((arrTasks, t) => [...arrTasks, t], [],0)
+      reduce((arrTasks, t: Task) => [...arrTasks, t], [])
     );
   }
 

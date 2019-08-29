@@ -90,7 +90,7 @@ export function reducer(state = initialState, action: actions.Actions): State {
             return addProject(state, action);
         case actions.ActionTypes.DELETE_SUCCESS:
             return delProject(state, action);
-        case actions.ActionTypes.INVITE_SUCCESS:
+        // case actions.ActionTypes.INVITE_SUCCESS:
         case actions.ActionTypes.UPDATE_LISTS_SUCCESS:
         case actions.ActionTypes.UPDATE_SUCCESS:
             return updateProject(state, action);
