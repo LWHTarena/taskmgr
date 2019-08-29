@@ -77,3 +77,27 @@ OR
 ```
 
 3、mat-input-container 过期，被mat-form-field取代 [详见](https://github.com/angular/material2/blob/master/CHANGELOG.md#600-beta5-2018-03-23)
+
+4、路由语法变化（rxjs6 的路由语法）[详见](https://ngrx.io/guide/migration/v8#ngrxrouter-store)
+
+```
+BEFORE:以前的语法
+
+@NgModule({
+  imports: [
+    StoreRouterConnectingModule
+  ]
+})
+export class AppModule {}
+
+AFTER：现在的写法
+@NgModule({
+  imports: [
+    StoreRouterConnectingModule.forRoot() // <-- gotta do this
+  ]
+})
+export class AppModule {}
+
+```
+
+5、V8 Update Guide [详见](https://ngrx.io/guide/migration/v8)

@@ -4,8 +4,7 @@ import {NgModule} from '@angular/core';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {
-    StoreRouterConnectingModule,
-    RouterStateSerializer,
+  RouterStateSerializer, StoreRouterConnectingModule,
 } from '@ngrx/router-store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
@@ -46,7 +45,7 @@ import {AuthEffects} from './effects/auth.effects';
         /**
          * @ngrx/router-store keeps router state up-to-date in the store.
          */
-        StoreRouterConnectingModule,
+        StoreRouterConnectingModule.forRoot(),
 
         /**
          * Store devtools instrument the store retaining past versions of state
