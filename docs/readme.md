@@ -1,5 +1,21 @@
 # 知识点
 
+## 如何用 npm 同时执行两条监听命令？
+
+需要安装 concurrently: `npm install -g concurrently`
+
+如下图修改package.json的 scripts:
+
+![](./img/001.png)
+
+**Mock Rest API**
+json-server快速“伪造”后台接口:
+
+json-server：用于快速搭建REST API的利器
+
+安装：`npm install -g json-server`
+
+
 ## rxjs 常见管道操作符(version 6.x)
 
 pipe来包裹所有操作符方法，使。移除，用逗号连接。

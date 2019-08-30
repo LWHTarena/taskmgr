@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "server": "json-server --watch mock/data.json --port 3000",
+    "strats": "concurrently \"ng serve --port=4200\" \"npm run server\""
   },
   "private": true,
   "dependencies": {
