@@ -6,7 +6,7 @@ const routes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
     {path: 'projects', redirectTo: '/projects', pathMatch: 'full'},
     {
-        path: 'tasklists/:id',
+        path: 'tasklist/:id',
       // loadChildren: 'app/task/task.module#TaskModule',
         loadChildren: () => import(`./task/task.module`).then(m => m.TaskModule)
         // canActivate: [AuthGuardService]

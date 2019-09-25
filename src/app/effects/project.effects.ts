@@ -80,7 +80,7 @@ export class ProjectEffects {
   selectProject$ /*: Observable<Action>*/ = this.actions$.pipe(
     ofType(actions.ActionTypes.SELECT),
     map((action: actions.SelectProjectAction) => action.payload),
-    map(project => this.router.navigate([`/tasklists/${project.id}`]))
+    map(project => this.router.navigate([`/tasklist/${project.id}`]))
   );
 
   @Effect()
