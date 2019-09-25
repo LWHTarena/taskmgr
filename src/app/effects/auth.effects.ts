@@ -11,10 +11,13 @@ import {catchError, map, switchMap, tap } from 'rxjs/operators';
 @Injectable()
 export class AuthEffects {
 
+  /**
+   * 用 @Effect() 修饰器来标明这是一个 Effect
+   */
   @Effect()
-  login$: Observable<Action> = this.actions$.pipe(
-    ofType(actions.ActionTypes.LOGIN),
-    map((action: actions.LoginAction) => action.payload),
+  login$: Observable<Action> = this.actions$.pipe( //  action 信号流
+    ofType(actions.ActionTypes.LOGIN),  //  如果是 LOGIN Action
+    map((action: actions.LoginAction) => action.payload), //  转换成 action 的 payload 数据流
     switchMap((val: { email: string, password: string }) => this.authService.login(val.email, val.password).pipe(
       map(auth => new actions.LoginSuccessAction(auth)),
       catchError(err => of(new actions.LoginFailAction({
@@ -60,6 +63,12 @@ export class AuthEffects {
     map(() => this.router.navigate(['/']))
   );
 
+  /**
+   * 通过构造注入需要的服务和 action 信号流
+   * @param actions$
+   * @param authService
+   * @param router
+   */
   constructor(private actions$: Actions, private authService: AuthService, private router: Router) {
   }
 }
