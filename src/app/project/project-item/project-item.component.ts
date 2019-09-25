@@ -45,22 +45,18 @@ export class ProjectItemComponent implements OnInit {
     }
 
     onInviteClick(ev: Event) {
-        ev.preventDefault();
         this.onInvite.emit();
     }
 
     onEditClick(ev: Event) {
-        ev.preventDefault();
         this.onEdit.emit();
     }
 
     onDeleteClick(ev: Event) {
-        ev.preventDefault();
         this.onDel.emit();
     }
 
     onClick(ev: Event) {
-        ev.preventDefault();
         this.itemSelected.emit();
     }
 
